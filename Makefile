@@ -5,7 +5,7 @@ OSREV=$(shell uname -r)
 
 VERSION := 1.22pre081119
 DESTDIR ?=
-CONFDIR:=/etc/asterisk
+CONFDIR := $(DESTDIR)/etc/asterisk
 CONFDIR_REAL := $(DESTDIR)/etc/asterisk
 PERMDIR:=/etc/asterisk
 PERMDIR_REAL := $(DESTDIR)/etc/asterisk
@@ -53,7 +53,7 @@ else
   ASTLINK=-Wl,-E
   SOLINK=-shared -Xlinker -x
   LOGDIR=/var/log/asterisk   
-  CERTDIR := /var/lib/asterisk/certs
+  CERTDIR := $(DESTDIR)/var/lib/asterisk/certs
   MKTEMP=/bin/mktemp
 endif
 
@@ -94,7 +94,7 @@ cert:
 		umask 77 ; \
                 PEM1=`$(MKTEMP) /tmp/openssl.XXXXXX` ; \
                 PEM2=`$(MKTEMP) /tmp/openssl.XXXXXX` ; \
-		if [ ! -f $(CONFDIR) ]; then mkdir -p $(CONFDIR); fi; \
+		if [ ! -f $(CONFDIR_REAL) ]; then mkdir -p $(CONFDIR_REAL); fi; \
 		if [ ! -f $(PROXYSSLCONF) ]; then \
 			install ./configs/ssl.conf $(PROXYSSLCONF); \
 		fi; \
@@ -126,7 +126,7 @@ certificate:
 		umask 77 ; \
                 PEM1=`$(MKTEMP) /tmp/openssl.XXXXXX` ; \
                 PEM2=`$(MKTEMP) /tmp/openssl.XXXXXX` ; \
-		if [ ! -f $(CONFDIR) ]; then mkdir -p $(CONFDIR); fi; \
+                if [ ! -f $(CONFDIR_REAL) ]; then mkdir -p $(CONFDIR_REAL); fi; \
 		if [ ! -f $(PROXYSSLCONF) ]; then \
 			install ./configs/ssl.conf $(PROXYSSLCONF); \
 		fi; \
