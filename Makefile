@@ -94,7 +94,7 @@ cert:
 		umask 77 ; \
                 PEM1=`$(MKTEMP) /tmp/openssl.XXXXXX` ; \
                 PEM2=`$(MKTEMP) /tmp/openssl.XXXXXX` ; \
-		if [ ! -f $(CONFDIR) ]; then install $(CONFDIR); fi \
+		if [ ! -f $(CONFDIR) ]; then install $(CONFDIR); fi; \
 		if [ ! -f $(PROXYSSLCONF) ]; then \
 			install ./configs/ssl.conf $(PROXYSSLCONF); \
 		fi; \
