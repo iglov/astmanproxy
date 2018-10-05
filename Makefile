@@ -154,7 +154,7 @@ install: uninstall all
 
 uninstall:
 	rm -f $(BINDIR)/astmanproxy
-	cd $(MODDIR); rm -f $(SOBJS)
+	rm -f $(MODDIR)
 	@echo "Successfully uninstalled!"
 
 dist: clean
