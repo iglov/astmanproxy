@@ -40,6 +40,7 @@ pthread_mutex_t debuglock;
 static int asock = -1;
 FILE *proxylog;
 int debug = 0;
+int attach = 0;
 
 void hup(int sig) {
 	if (proxylog) {
@@ -134,8 +135,9 @@ void Version( void )
 
 void Usage( void )
 {
-	printf("Usage: astmanproxy [-d|-h|-v]\n");
+	printf("Usage: astmanproxy [-d|-a|-h|-v]\n");
 	printf(" -d : Start in Debug Mode\n");
+	printf(" -a : Start in Attach Mode\n");
 	printf(" -h : Displays this message\n");
 	printf(" -v : Displays version information\n");
 	printf("Start with no options to run as daemon\n");
@@ -690,11 +692,14 @@ int main(int argc, char *argv[])
 	char i;
 
 	/* Figure out if we are in debug mode, handle other switches */
-	while (( i = getopt( argc, argv, "dhv" ) ) != EOF )
+	while (( i = getopt( argc, argv, "dahv" ) ) != EOF )
 	{
 		switch( i ) {
 			case 'd':
 				debug++;
+				break;
+			case 'a':
+				attach++;
 				break;
 			case 'h':
 				Usage();
@@ -720,12 +725,14 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	/* If we are not in debug mode, then fork to background */
+	/* If we are not in debug or attach mode, then fork to background */
 	if (!debug) {
-		if ( (pid = fork()) < 0)
-			exit( 1 );
-		else if ( pid > 0)
-			exit( 0 );
+		if (!attach) {
+			if ( (pid = fork()) < 0)
+				exit( 1 );
+			else if ( pid > 0)
+				exit( 0 );
+		}
 	}
 
 	/* Setup signal handlers */

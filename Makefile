@@ -155,8 +155,8 @@ install: uninstall all
 	@echo "Installation Complete!"
 
 uninstall:
-	rm -f $(BINDIR)/astmanproxy
-	rm -f $(MODDIR)
+	rm -rf $(BINDIR)/astmanproxy
+	rm -rf $(MODDIR)
 	@echo "Successfully uninstalled!"
 
 dist: clean
