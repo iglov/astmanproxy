@@ -1,3 +1,7 @@
+1.23
+	Add new "-a" key, for attach astmanproxy on foreground without debug
+	Fix some Makefile issuses
+
 1.22pre081119 - Refresh of GIT fork by Steve Davies
 	Add AutoFilter=unique option for better ActionID tracking (Steve Davies)
 	Add more_events option for users to get more "noise" (Steve Davies)
